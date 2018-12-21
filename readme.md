@@ -1,6 +1,7 @@
 # Note Command
 
 ```sh
+# create vpn via docker
 OVPN_DATA="ovpn-data"
 docker volume create --name $OVPN_DATA
 docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_genconfig -u tcp://192.168.1.100:443
@@ -9,6 +10,7 @@ docker run -v $OVPN_DATA:/etc/openvpn --name vpn-service -d -p 443:1194/tcp --ca
 docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass
 docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
 
+# add command to firewall
 iptables -N BLOCKED-DOMAIN
 iptables -I FORWARD -j BLOCKED-DOMAIN
 iptables -I BLOCKED-DOMAIN -m string --algo bm --string "appnext.com" -j REJECT
