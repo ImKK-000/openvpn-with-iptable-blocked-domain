@@ -24,4 +24,8 @@ sudo iptables -I BLOCKED-DOMAIN -m string --algo bm --string "appier.net" -j REJ
 sudo iptables -I BLOCKED-DOMAIN -m string --algo bm --string "llnwd.net" -j REJECT
 sudo iptables -I BLOCKED-DOMAIN -m string --algo bm --string "mopub.com" -j REJECT
 sudo iptables -L BLOCKED-DOMAIN
+
+# if you want to store package to logging file
+sudo iptables -A BLOCKED-DOMAIN -j LOG --log-prefix "IPTables-LOG: " --log-level 4
+sudo tail -f /var/log/kern.log | grep --line-buffered "IPTables"
 ```
